@@ -1,0 +1,2 @@
+# ProjectTemplateFrontendSpaReact
+Шаблон проекта фронтенд

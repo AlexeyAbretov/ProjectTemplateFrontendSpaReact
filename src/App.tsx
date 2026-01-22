@@ -1,13 +1,12 @@
 import React, { JSX } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { AppInitializer } from './AppHelpers';
+import { appInitializer } from '@store';
 
-const appInitializer = new AppInitializer();
 appInitializer.init();
 
 export const App: React.FC = (): JSX.Element => {
-    return <Provider store={appInitializer.getStore()}>
-      <RouterProvider router={appInitializer.getRouter()} />
-    </Provider>
+  return <Provider store={appInitializer.store}>
+    <RouterProvider router={appInitializer.getRouter()} />
+  </Provider>
 }

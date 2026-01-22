@@ -1,34 +1,99 @@
-import { configureStore, combineReducers, Reducer } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { createBrowserRouter, RouteObject } from "react-router";
 
-// Объект, куда мы будем динамически записывать редьюсеры из модулей
-const dynamicReducers: Record<string, Reducer> = {};
+export class PageRegistry {
+  private _routes: RouteObject[] = [];
 
-// Базовый стор
-export const store = configureStore({
-  reducer: (state, action) => {
-    // Если в динамических редьюсерах что-то появилось, объединяем их
-    const combined = combineReducers({ ...dynamicReducers });
-    return combined(state, action);
-  },
-  preloadedState: undefined,
-  devTools: {
-    name: 'ModuleExampleStore',
-    trace: true,
-    traceLimit: 25
-  },
-  middleware: getDefaultMiddleware => getDefaultMiddleware({
-    serializableCheck: false
-  })
-});
+  registerRoutes(routes: RouteObject[]) {
+    this._routes.push(...routes);
+  }
 
-// Функция для регистрации редьюсера из модуля
-export const registerModuleReducer = (key: string, reducer: Reducer) => {
-  dynamicReducers[key] = reducer;
-  // Пересобираем редьюсер (Redux Toolkit это подхватит)
-  store.replaceReducer(combineReducers({ ...dynamicReducers }));
-};
+  getRoutes() {
+    return this._routes;
+  }
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+  load() {
+    const context = require.context('../pages', true, /index\.tsx$/);
+
+    context.keys().filter(x => x.startsWith('./')).forEach((key) => {
+      const page = context(key);
+
+      if (page.routes) {
+        this.registerRoutes(page.routes);
+      }
+    });
+  };
+}
+
+export class ModuleRegistry {
+  private _store = configureStore({
+    reducer: (state, action) => {
+      // Если в динамических редьюсерах что-то появилось, объединяем их
+      const combined = combineReducers({ ...this.dynamicReducers });
+      return combined(state, action);
+    },
+    preloadedState: undefined,
+    devTools: {
+      name: 'ModuleExampleStore',
+      trace: true,
+      traceLimit: 25
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+      serializableCheck: false
+    })
+  });
+
+  getStore() {
+    return this._store;
+  }
+
+  private dynamicReducers: Record<string, Reducer> = {};
+
+  registerModuleReducer(key: string, reducer: Reducer) {
+    this.dynamicReducers[key] = reducer;
+    this._store.replaceReducer(combineReducers({ ...this.dynamicReducers }));
+  }
+
+  load() {
+    const context = require.context('../modules', true, /index\.ts$/);
+
+    context.keys().filter(x => x.startsWith('./')).forEach((key) => {
+      const module = context(key);
+
+      if (module.reducer) {
+        const moduleName = module.reducer.name;
+
+        if (moduleName) {
+          this.registerModuleReducer(moduleName, module.reducer.value);
+        }
+      }
+    })
+  }
+}
+
+export class AppInitializer {
+    private _pageRegistry = new PageRegistry();
+    private _moduleRegistry = new ModuleRegistry();
+
+    init() {
+        this._pageRegistry.load();
+        this._moduleRegistry.load();
+    }
+
+    getRouter() {
+        return createBrowserRouter([
+            ...this._pageRegistry.getRoutes()
+        ]);
+    }
+
+    get store() {
+        return this._moduleRegistry.getStore();
+    }
+}
+
+export const appInitializer = new AppInitializer();
+
+export type RootState = ReturnType<typeof appInitializer.store.getState>;
+export type AppDispatch = typeof appInitializer.store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();

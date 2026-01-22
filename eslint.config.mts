@@ -18,7 +18,7 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['build/', 'dist/', 'coverage/', 'commitlint.config.js'],
+    ignores: ['build/', 'dist/', 'coverage/'],
   },
   tseslint.configs.recommended,
   {

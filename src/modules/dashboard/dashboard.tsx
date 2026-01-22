@@ -1,3 +1,3 @@
 export const Dashboard: React.FC = () => {
-    return <div>Dasboard module</div>
-}
+  return <div>Dasboard module</div>;
+};

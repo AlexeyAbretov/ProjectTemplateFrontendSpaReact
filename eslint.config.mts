@@ -1,14 +1,15 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import { defineConfig } from "eslint/config";
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import { defineConfig } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     plugins: { js },
-    extends: ["js/recommended"],
+    extends: ['js/recommended'],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -17,21 +18,22 @@ export default defineConfig([
     },
   },
   {
-    ignores: ["build/", "dist/", "coverage/", "commitlint.config.js"]
+    ignores: ['build/', 'dist/', 'coverage/', 'commitlint.config.js'],
   },
   tseslint.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
   },
   {
-    ...pluginReact.configs.flat['jsx-runtime']
+    ...pluginReact.configs.flat['jsx-runtime'],
   },
   {
-    ignores: ["node_modules/**", "dist/**", "build/**"],
+    ignores: ['node_modules/**', 'dist/**', 'build/**'],
   },
+  eslintPluginPrettierRecommended,
 ]);

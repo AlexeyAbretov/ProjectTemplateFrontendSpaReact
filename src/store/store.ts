@@ -1,6 +1,6 @@
-import { combineReducers, configureStore, Reducer } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import { createBrowserRouter, RouteObject } from "react-router";
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import { createBrowserRouter, RouteObject } from 'react-router';
 
 export class PageRegistry {
   private _routes: RouteObject[] = [];
@@ -16,14 +16,17 @@ export class PageRegistry {
   load() {
     const context = require.context('../pages', true, /index\.tsx$/);
 
-    context.keys().filter(x => x.startsWith('./')).forEach((key) => {
-      const page = context(key);
+    context
+      .keys()
+      .filter(x => x.startsWith('./'))
+      .forEach(key => {
+        const page = context(key);
 
-      if (page.routes) {
-        this.registerRoutes(page.routes);
-      }
-    });
-  };
+        if (page.routes) {
+          this.registerRoutes(page.routes);
+        }
+      });
+  }
 }
 
 export class ModuleRegistry {
@@ -37,11 +40,12 @@ export class ModuleRegistry {
     devTools: {
       name: 'ModuleExampleStore',
       trace: true,
-      traceLimit: 25
+      traceLimit: 25,
     },
-    middleware: getDefaultMiddleware => getDefaultMiddleware({
-      serializableCheck: false
-    })
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
 
   getStore() {
@@ -58,38 +62,39 @@ export class ModuleRegistry {
   load() {
     const context = require.context('../modules', true, /index\.ts$/);
 
-    context.keys().filter(x => x.startsWith('./')).forEach((key) => {
-      const module = context(key);
+    context
+      .keys()
+      .filter(x => x.startsWith('./'))
+      .forEach(key => {
+        const module = context(key);
 
-      if (module.reducer) {
-        const moduleName = module.reducer.name;
+        if (module.reducer) {
+          const moduleName = module.reducer.name;
 
-        if (moduleName) {
-          this.registerModuleReducer(moduleName, module.reducer.value);
+          if (moduleName) {
+            this.registerModuleReducer(moduleName, module.reducer.value);
+          }
         }
-      }
-    })
+      });
   }
 }
 
 export class AppInitializer {
-    private _pageRegistry = new PageRegistry();
-    private _moduleRegistry = new ModuleRegistry();
+  private _pageRegistry = new PageRegistry();
+  private _moduleRegistry = new ModuleRegistry();
 
-    init() {
-        this._pageRegistry.load();
-        this._moduleRegistry.load();
-    }
+  init() {
+    this._pageRegistry.load();
+    this._moduleRegistry.load();
+  }
 
-    getRouter() {
-        return createBrowserRouter([
-            ...this._pageRegistry.getRoutes()
-        ]);
-    }
+  getRouter() {
+    return createBrowserRouter([...this._pageRegistry.getRoutes()]);
+  }
 
-    get store() {
-        return this._moduleRegistry.getStore();
-    }
+  get store() {
+    return this._moduleRegistry.getStore();
+  }
 }
 
 export const appInitializer = new AppInitializer();

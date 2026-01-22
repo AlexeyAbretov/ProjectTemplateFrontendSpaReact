@@ -1,2 +1,2 @@
-export { AppInitializer, useAppDispatch, appInitializer } from './store'
-export type { AppDispatch } from './store'
+export { AppInitializer, useAppDispatch, appInitializer } from './store';
+export type { AppDispatch } from './store';

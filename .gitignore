@@ -5,4 +5,5 @@ node_modules
 storybook-static
 dist
 build
+build-dev
 coverage

@@ -5,6 +5,7 @@ import { Button } from '@components';
 import { getModule2Step } from '@modules/module2';
 import { useAppDispatch } from '@useAppDispatch';
 
+import { Module1CustomButton } from './components/Module1CustomButton';
 import { loadItems } from './store';
 
 export const Module1: React.FC = () => {
@@ -18,6 +19,7 @@ export const Module1: React.FC = () => {
   return (
     <div>
       Module 1
+      <Module1CustomButton />
       <Button />
     </div>
   );

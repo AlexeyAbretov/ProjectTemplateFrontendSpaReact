@@ -1,7 +1,9 @@
-import { LoadingState } from '@constants';
-import { Module2StoreType } from '../types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import { LoadingState } from '@constants';
+
 import { Module2Steps } from '../constants';
+import { Module2StoreType } from '../types';
 
 export const InitialStore: Module2StoreType = {
   loading: LoadingState.Idle,

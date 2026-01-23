@@ -1,5 +1,5 @@
-import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
 
 const styledComponentsTransformer = createStyledComponentsTransformer({

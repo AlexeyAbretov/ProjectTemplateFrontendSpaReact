@@ -1,1 +1,1 @@
-export { TestComponentWrapper, renderUiWithProviders } from './testUtils';
+export { renderUiWithProviders, TestComponentWrapper } from './testUtils';

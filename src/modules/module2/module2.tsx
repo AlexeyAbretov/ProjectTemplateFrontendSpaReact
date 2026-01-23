@@ -1,5 +1,7 @@
-import { useAppDispatch } from '@useAppDispatch';
 import { useEffect } from 'react';
+
+import { useAppDispatch } from '@useAppDispatch';
+
 import { loadItems } from './store';
 
 export const Module2: React.FC = () => {

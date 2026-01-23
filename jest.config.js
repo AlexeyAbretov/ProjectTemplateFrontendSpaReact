@@ -1,4 +1,5 @@
 import { createDefaultPreset, pathsToModuleNameMapper } from 'ts-jest';
+
 import tsconfig from './tsconfig.json' with { type: 'json' };
 
 const compilerOptions = tsconfig.compilerOptions;

@@ -1,6 +1,8 @@
-import { TestComponentWrapper } from '@testUtils';
-import { Button } from '../Button';
 import { render, screen } from '@testing-library/react';
+
+import { TestComponentWrapper } from '@testUtils';
+
+import { Button } from '../Button';
 
 describe('Button test', () => {
   it('should render', () => {

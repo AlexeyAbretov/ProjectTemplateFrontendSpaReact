@@ -1,6 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Module2StoreType } from '../types';
+
 import { getAppStore } from '@selectors';
+
+import { Module2StoreType } from '../types';
 
 export const getModule2State = createSelector(
   [getAppStore],

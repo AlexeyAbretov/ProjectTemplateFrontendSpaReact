@@ -1,9 +1,11 @@
 import React, { JSX } from 'react';
-import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { appInitializer } from './appInitializer';
+import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
 import { theme } from '@theme';
+
+import { appInitializer } from './appInitializer';
 
 appInitializer.init();
 

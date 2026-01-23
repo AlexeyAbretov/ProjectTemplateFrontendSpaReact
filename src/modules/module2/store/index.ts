@@ -1,1 +1,1 @@
-export { Module2Slice, loadItems } from './module2-store';
+export { loadItems, Module2Slice } from './module2-store';

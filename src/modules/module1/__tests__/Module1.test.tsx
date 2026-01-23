@@ -1,8 +1,10 @@
-import { renderUiWithProviders } from '@testUtils';
-import { Module1 } from '../module1';
 import { configureStore } from '@reduxjs/toolkit';
-import { Module1Slice } from '../store';
+
 import { Module2Slice } from '@modules/module2/store';
+import { renderUiWithProviders } from '@testUtils';
+
+import { Module1 } from '../module1';
+import { Module1Slice } from '../store';
 
 const store = configureStore({
   reducer: {

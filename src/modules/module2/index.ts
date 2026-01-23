@@ -7,4 +7,4 @@ export const reducer = {
   value: Module2Slice.reducer,
 };
 
-export { getModule2Step, getModule2State } from './selectors';
+export { getModule2State, getModule2Step } from './selectors';

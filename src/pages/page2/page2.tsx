@@ -1,5 +1,6 @@
-import { Module2 } from '@modules/module2';
 import { Link, Outlet } from 'react-router-dom';
+
+import { Module2 } from '@modules/module2';
 
 export const Page2Layout: React.FC = () => {
   return (

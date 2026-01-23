@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import { loadItems } from './store';
-import { useAppDispatch } from '@useAppDispatch';
 import { useSelector } from 'react-redux';
-import { getModule2Step } from '@modules/module2';
+
 import { Button } from '@components';
+import { getModule2Step } from '@modules/module2';
+import { useAppDispatch } from '@useAppDispatch';
+
+import { loadItems } from './store';
 
 export const Module1: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,1 +1,1 @@
-export { getModule2Step, getModule2State } from './module2-selectors';
+export { getModule2State, getModule2Step } from './module2-selectors';

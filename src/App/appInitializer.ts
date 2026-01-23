@@ -1,5 +1,5 @@
-import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 import { createBrowserRouter, RouteObject } from 'react-router';
+import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
 export class PageRegistry {
   private _routes: RouteObject[] = [];

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-
 import { fn } from 'storybook/test';
 
 import { Module1CustomButton } from '../Module1CustomButton';

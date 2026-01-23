@@ -1,5 +1,6 @@
-import { Dashboard } from '@modules/dashboard';
 import { Link } from 'react-router-dom';
+
+import { Dashboard } from '@modules/dashboard';
 
 export const DashboardPage: React.FC = () => {
   return (

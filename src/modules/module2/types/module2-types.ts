@@ -1,4 +1,5 @@
 import { LoadingState } from '@constants';
+
 import { Module2Steps } from '../constants';
 
 export type Module2StoreType = {

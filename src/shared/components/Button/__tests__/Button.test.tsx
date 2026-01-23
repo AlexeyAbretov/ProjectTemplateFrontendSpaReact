@@ -1,10 +1,16 @@
+import { TestComponentWrapper } from '@testUtils';
 import { Button } from '../Button';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 describe('Button test', () => {
   it('should render', () => {
-    const { container } = render(<Button />);
+    const { container } = render(
+      <TestComponentWrapper>
+        <Button />
+      </TestComponentWrapper>,
+    );
 
+    expect(screen.getByText('Button')).toHaveStyleRule('color', 'blue');
     expect(container).toMatchSnapshot();
   });
 });

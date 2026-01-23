@@ -1,5 +1,4 @@
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouteObject } from 'react-router';
 
 export class PageRegistry {
@@ -32,7 +31,6 @@ export class PageRegistry {
 export class ModuleRegistry {
   private _store = configureStore({
     reducer: (state, action) => {
-      // Если в динамических редьюсерах что-то появилось, объединяем их
       const combined = combineReducers({ ...this.dynamicReducers });
       return combined(state, action);
     },
@@ -60,7 +58,7 @@ export class ModuleRegistry {
   }
 
   load() {
-    const context = require.context('../modules', true, /index\.ts$/);
+    const context = require.context('@modules', true, /index\.ts$/);
 
     context
       .keys()
@@ -98,7 +96,3 @@ export class AppInitializer {
 }
 
 export const appInitializer = new AppInitializer();
-
-export type RootState = ReturnType<typeof appInitializer.store.getState>;
-export type AppDispatch = typeof appInitializer.store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();

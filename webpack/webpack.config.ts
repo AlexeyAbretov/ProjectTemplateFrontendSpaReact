@@ -1,6 +1,11 @@
 import path from 'path';
-
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
+
+const styledComponentsTransformer = createStyledComponentsTransformer({
+  ssr: false,
+  displayName: true,
+});
 
 module.exports = {
   mode: 'development',
@@ -15,7 +20,13 @@ module.exports = {
     rules: [
       {
         test: /\.(tsx|ts|js)?$/,
-        use: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            getCustomTransformers: () => ({ before: [styledComponentsTransformer] }),
+          },
+        },
         exclude: /node_modules/,
       },
     ],
@@ -26,7 +37,10 @@ module.exports = {
     alias: {
       '@modules': path.resolve(process.cwd(), './src/modules'),
       '@constants': path.resolve(process.cwd(), './src/shared/constants'),
-      '@store': path.resolve(process.cwd(), './src/store'),
+      '@components': path.resolve(process.cwd(), './src/shared/components'),
+      '@theme': path.resolve(process.cwd(), './src/shared/theme'),
+      '@app': path.resolve(process.cwd(), './src/App'),
+      '@useAppDispatch': path.resolve(process.cwd(), './src/App/useAppDispatch'),
       '@selectors': path.resolve(process.cwd(), './src/shared/selectors'),
     },
   },

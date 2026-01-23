@@ -36,4 +36,9 @@ export default defineConfig([
     ignores: ['node_modules/**', 'dist/**', 'build/**'],
   },
   eslintPluginPrettierRecommended,
+  {
+    rules: {
+      'react/prop-types': 'off',
+    },
+  },
 ]);

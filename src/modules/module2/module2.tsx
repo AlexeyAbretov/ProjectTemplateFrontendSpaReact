@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@store';
+import { useAppDispatch } from '@useAppDispatch';
 import { useEffect } from 'react';
 import { loadItems } from './store';
 

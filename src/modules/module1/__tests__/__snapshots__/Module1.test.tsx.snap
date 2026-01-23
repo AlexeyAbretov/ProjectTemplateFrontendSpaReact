@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Module1 test should render 1`] = `
+.c0 {
+  color: blue;
+}
+
+<div>
+  <div>
+    Module 1
+    <button
+      class="c0"
+    >
+      Button
+    </button>
+  </div>
+</div>
+`;

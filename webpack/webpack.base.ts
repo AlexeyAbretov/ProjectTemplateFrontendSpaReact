@@ -24,11 +24,25 @@ export const getWebpackBaseConfig = (env: ENV): webpack.Configuration => {
     plugins: getWebpackPlugins(env),
     optimization: {
       splitChunks: {
+        chunks: 'all',
         cacheGroups: {
+          react: {
+            test: /[\\/]node_modules[\\/]react(-dom)?[\\/]/,
+            name: 'react',
+            priority: 11,
+            enforce: true,
+          },
+          router: {
+            test: /[\\/]node_modules[\\/]react-router(-dom)?[\\/]/,
+            name: 'react-router',
+            priority: 10,
+            enforce: true,
+          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            chunks: 'all',
+            priority: 9,
+            enforce: true,
           },
         },
       },

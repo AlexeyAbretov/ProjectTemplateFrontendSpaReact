@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack, { DefinePlugin } from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import { ENV } from './webpack.types';
 
@@ -11,5 +12,14 @@ export const getWebpackPlugins = (env: ENV): webpack.WebpackPluginInstance[] => 
     new DefinePlugin({
       ...env,
     }),
+    ...(env.NODE_ENV === 'development'
+      ? [
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: 'report.html',
+            openAnalyzer: false,
+          }),
+        ]
+      : []),
   ];
 };

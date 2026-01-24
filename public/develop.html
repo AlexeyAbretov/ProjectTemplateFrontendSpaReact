@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>template-frontend-spa-react dev</title>
+    <script>
+        const { fetch: originalFetch } = window;
+
+        window.fetch = async (...args) => {
+            const [resource, config] = args;
+
+            if (resource.includes('/api/')) {
+                const method = config?.method?.toUpperCase() || 'GET';
+                const api = resource.replace('api/v1/', '');
+                const scenarioKey = `${method}-${api.split('/').join('-')}`;
+
+                return await originalFetch(resource, {
+                    ...config || {},
+                    headers: {
+                        ...config?.headers || {},
+                        'x-scenario': window.localStorage.getItem(scenarioKey)
+                    }
+                });
+            }
+
+            return await originalFetch(resource, config);
+        }
+    </script>
 </head>
+
 <body>
     <div id="root"></div>
 </body>
+
 </html>

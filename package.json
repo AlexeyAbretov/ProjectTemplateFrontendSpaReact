@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\" webpack --config=\"webpack/webpack.prod-config.ts\" --stats-error-details",
-    "build:dev": "cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\" webpack --config=\"webpack/webpack.dev-config.ts\" --stats-error-details",
+    "build:dev": "cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\" BUILD_MODE=\"build-dev\" webpack --config=\"webpack/webpack.dev-config.ts\" --stats-error-details",
     "start": "cross-env TS_NODE_PROJECT=\"webpack/tsconfig.json\" webpack serve --config=\"webpack/webpack.dev-config.ts\"",
     "test": "jest",
     "lint": "eslint",

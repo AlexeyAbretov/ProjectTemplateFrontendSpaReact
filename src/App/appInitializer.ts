@@ -35,11 +35,14 @@ export class ModuleRegistry {
       return combined(state, action);
     },
     preloadedState: undefined,
-    devTools: {
-      name: 'ModuleExampleStore',
-      trace: true,
-      traceLimit: 25,
-    },
+    devTools:
+      NODE_ENV === 'development'
+        ? {
+            name: 'ModuleExampleStore',
+            trace: true,
+            traceLimit: 25,
+          }
+        : false,
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
         serializableCheck: false,

@@ -7,3 +7,6 @@ dist
 build
 build-dev
 coverage
+
+.vscode
+.npmrc

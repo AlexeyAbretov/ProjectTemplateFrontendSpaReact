@@ -10,9 +10,15 @@ export const getWebpackPlugins = (env: ENV): webpack.WebpackPluginInstance[] => 
       template: env.NODE_ENV === 'production' ? './public/index.html' : './public/develop.html',
     }),
     new DefinePlugin({
-      ...env,
+      ...Object.entries(env).reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: JSON.stringify(value),
+        }),
+        {},
+      ),
     }),
-    ...(env.NODE_ENV === 'development'
+    ...(env.NODE_ENV === 'development' && process.env.BUILD_MODE === 'build-dev'
       ? [
           new BundleAnalyzerPlugin({
             analyzerMode: 'static',

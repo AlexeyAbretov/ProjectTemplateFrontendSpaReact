@@ -8,6 +8,7 @@ export const getWebpackPlugins = (env: ENV): webpack.WebpackPluginInstance[] => 
   return [
     new HtmlWebpackPlugin({
       template: env.NODE_ENV === 'production' ? './public/index.html' : './public/develop.html',
+      env,
     }),
     new DefinePlugin({
       ...Object.entries(env).reduce(

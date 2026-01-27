@@ -11,9 +11,9 @@
         window.fetch = async (...args) => {
             const [resource, config] = args;
 
-            if (resource.includes('/api/')) {
+            if (resource.includes('<%=API_PATH %>')) {
                 const method = config?.method?.toUpperCase() || 'GET';
-                const api = resource.replace('api/v1/', '');
+                const api = resource.replace('<%=API_PATH %>', '');
                 const scenarioKey = `${method}-${api.split('/').join('-')}`;
 
                 return await originalFetch(resource, {

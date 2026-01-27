@@ -3,5 +3,4 @@
 
 TODO:
 
-- dev server proxy - mock server one port
 - webpack chunks - (lazy?)

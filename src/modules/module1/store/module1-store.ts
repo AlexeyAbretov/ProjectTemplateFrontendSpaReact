@@ -11,7 +11,7 @@ export const InitialStore: Module1StoreType = {
 };
 
 export const loadItems = createAsyncThunk('Module1Store/items/get', async (step: string) => {
-  const response = await fetch(`module1/${API_PATH}list`);
+  const response = await fetch(`${API_PATH}module1/list`);
 
   if (response.ok) {
     const data = await response.json();

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
+    "module": "es2022",
     "target": "esnext",
     "types": ["node", "jest", "webpack-env"],
     "sourceMap": false,
@@ -16,6 +16,7 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "moduleResolution": "bundler",
     "paths": {
       "@modules/*": ["./src/modules/*"],
       "@constants": ["./src/shared/constants"],

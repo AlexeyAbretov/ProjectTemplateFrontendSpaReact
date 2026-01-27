@@ -1,4 +1,5 @@
 import path from 'path';
+import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import { getWebpackPlugins } from './webpack.plugins';
@@ -23,6 +24,17 @@ export const getWebpackBaseConfig = (env: ENV): webpack.Configuration => {
     },
     plugins: getWebpackPlugins(env),
     optimization: {
+      minimize: env.NODE_ENV === 'production',
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            format: {
+              comments: false,
+            },
+          },
+          extractComments: false,
+        }),
+      ],
       splitChunks: {
         chunks: 'all',
         cacheGroups: {

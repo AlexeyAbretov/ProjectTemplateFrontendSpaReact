@@ -1,6 +1,12 @@
+import { lazy } from 'react';
+
 import { Module1Slice } from './store';
 
-export { Module1 } from './module1';
+export const Module1 = lazy(() =>
+  import('./module1').then(module => ({
+    default: module.Module1,
+  })),
+);
 
 export const reducer = {
   name: 'Module1',

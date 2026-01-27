@@ -69,6 +69,7 @@
     "jest-styled-components": "7.2.0",
     "prettier": "3.8.1",
     "storybook": "10.2.0",
+    "terser-webpack-plugin": "5.3.16",
     "ts-jest": "29.4.6",
     "ts-loader": "9.5.4",
     "ts-node": "10.9.2",

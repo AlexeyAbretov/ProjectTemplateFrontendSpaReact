@@ -1,14 +1,15 @@
 # ProjectTemplateFrontendSpaReact
 Шаблон проекта фронтенд
 
-### Сценарии
+## Мок-сервер
+https://github.com/AlexeyAbretov/ProjectTemplateFrontendSpaReact-mock-server
 
-хранение: localStorage
+Для передачи заголовка x-scenario в development режиме вместо index.html используется develop.html.
 
-структура: method-<путь-апи>
-
-путь-апи: без API_PATH
-
-пример, GET-module1-list, значение http400
+В нем перегружается window.fetch с последующим чтением ключа из localStorage и добавления заголока x-scenario.
 
 ### TODO
+
+- обернуть fetch в класс
+- документация (in progress)
+

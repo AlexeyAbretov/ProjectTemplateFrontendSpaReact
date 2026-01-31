@@ -43,10 +43,6 @@ export class ModuleRegistry {
             traceLimit: 25,
           }
         : false,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }),
   });
 
   getStore() {

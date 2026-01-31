@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { Button } from '@components';
 import { useAppDispatch } from '@useAppDispatch';
 
 import { loadItems } from './store';
@@ -11,5 +12,15 @@ export const Module2: React.FC = () => {
     dispatch(loadItems());
   }, []);
 
-  return <div>Module 2</div>;
+  return (
+    <>
+      <div>Module 2</div>
+      <Button
+        title="Go to module2-children2"
+        onClick={() => {
+          const e = new CustomEvent('OpenModule2Children2');
+          window.dispatchEvent(e);
+        }}></Button>
+    </>
+  );
 };

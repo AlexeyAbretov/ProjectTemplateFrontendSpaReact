@@ -106,6 +106,6 @@ npm install
 - [x] **Документация проекта** — см. [DOCUMENTATION.md](./DOCUMENTATION.md).
 - [x] Разработка расширения для VS Code для автоматической генерации структуры модулей.
 - [ ] Реализация полноценной шины событий (`EventBus`).
-- [ ] Сделать глобальный ErrorBoundary + ErrorBoundary для модулей и страниц
+- [x] Сделать глобальный ErrorBoundary + ErrorBoundary для модулей и страниц
 - [x] Сделать глобальный Layout
-- [x] Сделать глобальный Fallback/skeleton
+- [x] Сделать глобальный Fallback

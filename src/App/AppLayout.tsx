@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { SuspenseFallback } from '@components';
+import { ErrorBoundary, SuspenseFallback } from '@components';
 
 import { Footer, Header, Layout, Main, Nav, NavLink } from './AppLayout.styled';
 
@@ -17,9 +17,11 @@ export const AppLayout: React.FC = () => {
         </Nav>
       </Header>
       <Main>
-        <Suspense key={location.pathname} fallback={<SuspenseFallback />}>
-          <Outlet />
-        </Suspense>
+        <ErrorBoundary level="page">
+          <Suspense key={location.pathname} fallback={<SuspenseFallback />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </Main>
       <Footer>© {new Date().getFullYear()}</Footer>
     </Layout>

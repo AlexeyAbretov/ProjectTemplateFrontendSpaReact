@@ -1,11 +1,14 @@
 import { Suspense } from 'react';
 
+import { ErrorBoundary, SuspenseFallback } from '@components';
 import { Module1 } from '@modules/module1';
 
 export const Page1: React.FC = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Module1 />
-    </Suspense>
+    <ErrorBoundary level="module" componentName="page1">
+      <Suspense fallback={<SuspenseFallback />}>
+        <Module1 />
+      </Suspense>
+    </ErrorBoundary>
   );
 };

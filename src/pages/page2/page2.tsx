@@ -16,7 +16,7 @@ export const Page2Layout: React.FC = () => {
     return () => {
       window.removeEventListener('OpenModule2Children2', handler);
     };
-  });
+  }, []);
 
   return (
     <div>

@@ -7,9 +7,9 @@ import { theme } from '@theme';
 
 import { appInitializer } from './appInitializer';
 
-appInitializer.init();
-
 export const App: React.FC = (): JSX.Element => {
+  appInitializer.init();
+
   return (
     <Provider store={appInitializer.store}>
       <ThemeProvider theme={theme}>

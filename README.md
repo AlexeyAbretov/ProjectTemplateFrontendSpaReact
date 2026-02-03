@@ -91,6 +91,10 @@ npm install
 Для имитации API используется: 
 [ProjectTemplateFrontendSpaReact-mock-server](https://github.com/AlexeyAbretov/ProjectTemplateFrontendSpaReact-mock-server).
 
+### Расширение для генерации модулей и страниц
+Для VSCode сочетание клавиш Ctrl + alt + shift + g запустит мастер генерации модуля
+Ссылка на исходный код расширения [VscodeExtensionModuleGenerate](https://github.com/AlexeyAbretov/VscodeExtensionModuleGenerate).
+
 ### Тестирование сценариев
 Для работы в режиме разработки используется файл `develop.html` вместо стандартного `index.html`. В нём переопределён `window.fetch`: ключ сценария берётся из `localStorage` (по методу и пути запроса) и передаётся в заголовке `x-scenario`. Подробное описание — в [DOCUMENTATION.md](./DOCUMENTATION.md#12-работа-с-мок-сервером-и-сценариями-x-scenario).
 
@@ -100,7 +104,7 @@ npm install
 
 - [ ] Инкапсуляция логики запросов: обернуть `fetch` в специализированный класс.
 - [x] **Документация проекта** — см. [DOCUMENTATION.md](./DOCUMENTATION.md).
-- [ ] Разработка расширения для VS Code для автоматической генерации структуры модулей.
+- [x] Разработка расширения для VS Code для автоматической генерации структуры модулей.
 - [ ] Реализация полноценной шины событий (`EventBus`).
 - [ ] Сделать глобальный ErrorBoundary + ErrorBoundary для модулей и страниц
 - [ ] Сделать глобальный Layout

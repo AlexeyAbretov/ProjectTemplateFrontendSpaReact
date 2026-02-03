@@ -428,7 +428,51 @@ useEffect(() => {
 - **`selectors/`** — общие селекторы; например, `getAppStore(state)` возвращает корневой state, чтобы селекторы модулей могли типизированно обращаться к `state.Module1` и т.д. Алиас `@selectors`.
 - **`utils/`** — утилиты, в том числе `@testUtils` для тестов (обёртки рендера с Provider и ThemeProvider).
 
-Алиасы заданы в **`tsconfig.json`** (paths) и в **`webpack/webpack.resolve.ts`** (alias), чтобы везде использовать короткие импорты.
+### Алиасы путей (paths)
+
+Алиасы позволяют импортировать модули короткими путями без `../../../`. Они задаются в двух местах, чтобы работали и TypeScript/IDE, и сборка, и тесты:
+
+| Где задаётся | Назначение |
+|--------------|------------|
+| **`tsconfig.json`** → `compilerOptions.paths` | Типы, автодополнение, переход по ссылкам в IDE; тесты Jest (Jest подхватывает эти пути через `moduleNameMapper` из `tsconfig`) |
+| **`webpack/webpack.resolve.ts`** → `resolve.alias` | Разрешение импортов при сборке (webpack) |
+| **`.storybook/webpack.config.ts`** → `resolve.alias` | Разрешение импортов в Storybook (истории собираются своим webpack) |
+
+Таблица алиасов (путь указан относительно корня проекта):
+
+| Алиас | Путь | Использование |
+|-------|------|----------------|
+| `@modules/*` | `./src/modules/*` | Импорт модулей: `@modules/dashboard`, `@modules/module1/store` |
+| `@constants` | `./src/shared/constants` | Общие константы: `import { LoadingState } from '@constants'` |
+| `@components` | `./src/shared/components` | Общие компоненты: `import { Button } from '@components'` |
+| `@theme` | `./src/shared/theme` | Тема: `import { theme } from '@theme'` |
+| `@selectors` | `./src/shared/selectors` | Общие селекторы: `import { getAppStore } from '@selectors'` |
+| `@app` | `./src/App` | Ядро приложения |
+| `@useAppDispatch` | `./src/App/useAppDispatch` | Типизированный `useDispatch` |
+| `@testUtils` | `./src/shared/utils/testUtils` | Только в тестах: `import { renderUiWithProviders } from '@testUtils'` (есть в `tsconfig.json` и в Jest; в webpack не нужен, т.к. тесты не входят в бандл) |
+
+**Примеры импортов в коде:**
+
+```ts
+// Модуль
+import { Module1 } from '@modules/module1';
+import { getModule2Step } from '@modules/module2';
+
+// Общие компоненты и тема
+import { Button } from '@components';
+import { theme } from '@theme';
+
+// Константы и селекторы
+import { LoadingState } from '@constants';
+import { getAppStore } from '@selectors';
+
+// В тестах
+import { renderUiWithProviders, TestComponentWrapper } from '@testUtils';
+```
+
+**Storybook.** В историях можно использовать те же алиасы (`@components`, `@theme` и т.д.): они заданы в **`.storybook/webpack.config.ts`** в `resolve.alias`.
+
+**Как добавить новый алиас:** продублировать его в **`tsconfig.json`** (в `compilerOptions.paths`), в **`webpack/webpack.resolve.ts`** (в `resolve.alias`) и в **`.storybook/webpack.config.ts`** (в `resolve.alias`). Для алиаса, используемого только в тестах (как `@testUtils`), достаточно `tsconfig.json` и настройки Jest (в шаблоне Jest уже подхватывает `paths` из tsconfig через `pathsToModuleNameMapper`).
 
 ---
 

@@ -2,17 +2,18 @@ import path from 'path';
 import webpack from 'webpack';
 
 export const getWebpackResolve = (): webpack.ResolveOptions => {
+  const root = process.cwd();
   return {
     extensions: ['.tsx', '.ts', '.js'],
-    modules: [path.join(process.cwd(), './src'), 'node_modules'],
+    modules: [path.join(root, './src'), 'node_modules'],
     alias: {
-      '@modules': path.resolve(process.cwd(), './src/modules'),
-      '@constants': path.resolve(process.cwd(), './src/shared/constants'),
-      '@components': path.resolve(process.cwd(), './src/shared/components'),
-      '@theme': path.resolve(process.cwd(), './src/shared/theme'),
-      '@app': path.resolve(process.cwd(), './src/App'),
-      '@useAppDispatch': path.resolve(process.cwd(), './src/App/useAppDispatch'),
-      '@selectors': path.resolve(process.cwd(), './src/shared/selectors'),
+      '@modules': path.resolve(root, './src/modules'),
+      '@constants': path.resolve(root, './src/shared/constants'),
+      '@components': path.resolve(root, './src/shared/components'),
+      '@theme': path.resolve(root, './src/shared/theme'),
+      '@app': path.resolve(root, './src/App'),
+      '@useAppDispatch': path.resolve(root, './src/App/useAppDispatch'),
+      '@selectors': path.resolve(root, './src/shared/selectors'),
     },
   };
 };

@@ -92,9 +92,7 @@ npm install
 [ProjectTemplateFrontendSpaReact-mock-server](https://github.com/AlexeyAbretov/ProjectTemplateFrontendSpaReact-mock-server).
 
 ### Тестирование сценариев
-Для работы в режиме разработки используется файл `develop.html` вместо стандартного `index.html`. 
-* В нем переопределен `window.fetch`, который автоматически считывает ключ сценария из `localStorage`.
-* Этот ключ передается в каждом запросе через заголовок `x-scenario`.
+Для работы в режиме разработки используется файл `develop.html` вместо стандартного `index.html`. В нём переопределён `window.fetch`: ключ сценария берётся из `localStorage` (по методу и пути запроса) и передаётся в заголовке `x-scenario`. Подробное описание — в [DOCUMENTATION.md](./DOCUMENTATION.md#12-работа-с-мок-сервером-и-сценариями-x-scenario).
 
 ---
 

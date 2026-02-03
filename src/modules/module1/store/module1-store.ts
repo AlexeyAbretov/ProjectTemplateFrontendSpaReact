@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { LoadingState } from '@constants';
 
-import { Module1StoreType } from '../types';
+import { Module1ListItem, Module1StoreType } from '../types';
 
 export const InitialStore: Module1StoreType = {
   loading: LoadingState.Idle,
@@ -13,7 +13,7 @@ export const InitialStore: Module1StoreType = {
 
 export const loadItems = createAsyncThunk('Module1Store/items/get', async (step: string) => {
   try {
-    const items = await apiClient.get<unknown[]>('module1/list');
+    const items = await apiClient.get<Module1ListItem[]>('module1/list');
     return { step, items };
   } catch {
     return { step, items: [] };

@@ -164,6 +164,37 @@ src/
 - Файлы store/selectors/types/constants внутри модуля часто именуются как `<module-name>-store.ts`, `<module-name>-selectors.ts` и т.д.
 - Алиасы импортов используются везде, где возможно: `@modules/...`, `@components`, `@theme`, `@constants`, `@selectors`, `@useAppDispatch`, `@testUtils`.
 
+### Сортировка импортов (линтинг)
+
+Порядок импортов в файлах задаётся правилом **`simple-import-sort/imports`** (плагин `eslint-plugin-simple-import-sort`) в **`eslint.config.mts`**. Линтер выдаёт ошибку при нарушении порядка; автоисправление: `npm run lint:fix`.
+
+**Порядок групп (сверху вниз):**
+
+1. **Внешние пакеты** — `react`, `react-dom` и остальные зависимости из `node_modules` (`^react`, `^@?\\w`).
+2. **Внутренние алиасы проекта** — импорты через `@components`, `@theme`, `@constants`, `@modules`, `@testUtils`, `@app`, `@useAppDispatch`, `@selectors`.
+3. **Side-effect импорты** — импорты только ради побочного эффекта (например, полифиллы).
+4. **Родительские относительные пути** — `../`, `../../` и т.д.
+5. **Локальные относительные пути** — `./` (текущая папка и подпапки).
+6. **Стили** — импорты файлов `.css`, `.scss` и т.п. (`^.+\\.s?css$`).
+
+Внутри каждой группы импорты сортируются по алфавиту. Пустые строки между группами добавляются автоматически при `lint:fix`.
+
+**Пример корректного блока импортов:**
+
+```ts
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { Button } from '@components';
+import { LoadingState } from '@constants';
+import { Module1 } from '@modules/module1';
+
+import { getItems } from './api';
+import { MyComponent } from './MyComponent';
+```
+
+При добавлении нового алиаса (см. раздел [10](#10-общие-ресурсы-shared)) его нужно прописать в конфиге сортировки в **`eslint.config.mts`** в массиве `groups` правила `simple-import-sort/imports` (группа с перечислением алиасов через `|`).
+
 ---
 
 ## 4. Старт приложения и регистры

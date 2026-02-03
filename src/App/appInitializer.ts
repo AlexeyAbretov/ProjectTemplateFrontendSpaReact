@@ -1,5 +1,8 @@
+import { createElement } from 'react';
 import { createBrowserRouter, RouteObject } from 'react-router';
 import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+
+import { AppLayout } from './AppLayout';
 
 export class PageRegistry {
   private _routes: RouteObject[] = [];
@@ -86,7 +89,12 @@ export class AppInitializer {
   }
 
   getRouter() {
-    return createBrowserRouter([...this._pageRegistry.getRoutes()]);
+    return createBrowserRouter([
+      {
+        element: createElement(AppLayout),
+        children: this._pageRegistry.getRoutes(),
+      },
+    ]);
   }
 
   get store() {

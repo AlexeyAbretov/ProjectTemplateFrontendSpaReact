@@ -7,6 +7,7 @@ export const getWebpackResolve = (): webpack.ResolveOptions => {
     extensions: ['.tsx', '.ts', '.js'],
     modules: [path.join(root, './src'), 'node_modules'],
     alias: {
+      '@api': path.resolve(root, './src/shared/api'),
       '@modules': path.resolve(root, './src/modules'),
       '@constants': path.resolve(root, './src/shared/constants'),
       '@components': path.resolve(root, './src/shared/components'),

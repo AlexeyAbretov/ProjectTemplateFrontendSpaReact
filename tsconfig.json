@@ -18,6 +18,7 @@
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "paths": {
+      "@api": ["./src/shared/api"],
       "@modules/*": ["./src/modules/*"],
       "@constants": ["./src/shared/constants"],
       "@components": ["./src/shared/components"],

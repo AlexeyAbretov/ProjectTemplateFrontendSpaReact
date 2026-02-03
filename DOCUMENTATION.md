@@ -453,6 +453,7 @@ useEffect(() => {
 
 В **`src/shared/`** лежат переиспользуемые части приложения:
 
+- **`api/`** — класс **`ApiClient`**: обёртка над `fetch` с базовым URL из `API_PATH`, методами `get`, `post`, `put`, `patch`, `delete`, парсингом JSON и ошибкой `ApiError`. Импорт: `import { apiClient } from '@api'`. Все запросы к API рекомендуется делать через него.
 - **`components/`** — общие UI-компоненты (например, `Button`). Подключаются через алиас `@components`.
 - **`constants/`** — общие константы (например, `LoadingState`). Алиас `@constants`.
 - **`theme/`** — тема для styled-components. Алиас `@theme`.
@@ -473,6 +474,7 @@ useEffect(() => {
 
 | Алиас | Путь | Использование |
 |-------|------|----------------|
+| `@api` | `./src/shared/api` | API-клиент: `import { apiClient, ApiError } from '@api'` |
 | `@modules/*` | `./src/modules/*` | Импорт модулей: `@modules/dashboard`, `@modules/module1/store` |
 | `@constants` | `./src/shared/constants` | Общие константы: `import { LoadingState } from '@constants'` |
 | `@components` | `./src/shared/components` | Общие компоненты: `import { Button } from '@components'` |
@@ -511,7 +513,7 @@ import { renderUiWithProviders, TestComponentWrapper } from '@testUtils';
 
 - **Файлы:** `.env.development`, `.env.production`, `.env.jest`. Подставляются через `dotenv` в webpack (см. `webpack.utils.ts`: `getEnvs('.env.development')` и т.д.) и передаются в приложение через `DefinePlugin`.
 - **Глобальные переменные:** в `src/types/global.d.ts` объявлены, например, `NODE_ENV` и `API_PATH`. Их значения в рантайме задаёт сборка из соответствующего `.env`.
-- **API:** базовый путь к API задаётся через `API_PATH` (например, в `.env.development`: `API_PATH=api/v1/`). В коде используется как глобальная переменная, например: `fetch(\`${API_PATH}module1/list\`)`.
+- **API:** базовый путь к API задаётся через `API_PATH` (например, в `.env.development`: `API_PATH=api/v1/`). Запросы к API выполняются через **`ApiClient`** в `src/shared/api` (импорт `@api`): он подставляет базовый URL, парсит JSON и при `!response.ok` выбрасывает `ApiError`. Пример: `await apiClient.get<Item[]>('module1/list')`.
 - **Режим разработки и сценарии:** в `public/develop.html` переопределён `window.fetch`: при запросах к URL, содержащему подставленный `API_PATH`, в заголовок запроса добавляется `x-scenario` из `localStorage` (ключ строится по методу и пути). Подробнее — раздел [12](#12-работа-с-мок-сервером-и-сценариями-x-scenario).
 
 ---

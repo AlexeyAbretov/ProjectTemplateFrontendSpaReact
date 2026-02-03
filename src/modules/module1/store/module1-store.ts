@@ -1,3 +1,4 @@
+import { apiClient } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { LoadingState } from '@constants';
@@ -11,21 +12,12 @@ export const InitialStore: Module1StoreType = {
 };
 
 export const loadItems = createAsyncThunk('Module1Store/items/get', async (step: string) => {
-  const response = await fetch(`${API_PATH}module1/list`);
-
-  if (response.ok) {
-    const data = await response.json();
-
-    return {
-      step,
-      items: data,
-    };
+  try {
+    const items = await apiClient.get<unknown[]>('module1/list');
+    return { step, items };
+  } catch {
+    return { step, items: [] };
   }
-
-  return {
-    step,
-    items: [],
-  };
 });
 
 export const Module1Slice = createSlice({

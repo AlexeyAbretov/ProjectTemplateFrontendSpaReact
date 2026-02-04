@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { eventBus } from '@shared';
 
 import { Button } from '@components';
 import { useAppDispatch } from '@useAppDispatch';
@@ -18,8 +19,7 @@ export const Module2: React.FC = () => {
       <Button
         title="Go to module2-children2"
         onClick={() => {
-          const e = new CustomEvent('OpenModule2Children2');
-          window.dispatchEvent(e);
+          eventBus.emit('OpenModule2Children2');
         }}></Button>
     </>
   );

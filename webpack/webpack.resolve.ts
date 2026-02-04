@@ -12,6 +12,7 @@ export const getWebpackResolve = (): webpack.ResolveOptions => {
       '@constants': path.resolve(root, './src/shared/constants'),
       '@components': path.resolve(root, './src/shared/components'),
       '@theme': path.resolve(root, './src/shared/theme'),
+      '@shared': path.resolve(root, './src/shared'),
       '@app': path.resolve(root, './src/App'),
       '@useAppDispatch': path.resolve(root, './src/App/useAppDispatch'),
       '@selectors': path.resolve(root, './src/shared/selectors'),

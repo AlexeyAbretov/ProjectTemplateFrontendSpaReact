@@ -23,6 +23,7 @@
       "@constants": ["./src/shared/constants"],
       "@components": ["./src/shared/components"],
       "@theme": ["./src/shared/theme"],
+      "@shared": ["./src/shared"],
       "@testUtils": ["./src/shared/utils/testUtils"],
       "@app": ["./src/App"],
       "@useAppDispatch": ["./src/App/useAppDispatch"],

@@ -15,7 +15,7 @@ export const getWebpackBaseConfig = (env: ENV): webpack.Configuration => {
     output: {
       path: path.join(process.cwd(), env.NODE_ENV === 'production' ? 'build' : 'build-dev'),
       filename: env.NODE_ENV === 'production' ? '[name].[contenthash].js' : '[name].js',
-      publicPath: 'auto',
+      publicPath: env.PUBLIC_PATH || '/',
       clean: true,
     },
     resolve: getWebpackResolve(),

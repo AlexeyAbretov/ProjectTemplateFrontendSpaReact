@@ -1,11 +1,13 @@
 import path from 'path';
 import WebpackDevServer from 'webpack-dev-server';
 
-export const getWebpackDevServerConfig = (): WebpackDevServer.Configuration => {
+import { ENV } from './webpack.types';
+
+export const getWebpackDevServerConfig = (env: ENV): WebpackDevServer.Configuration => {
   return {
     static: {
       directory: path.join(__dirname, 'dist'),
-      publicPath: 'auto',
+      publicPath: env.PUBLIC_PATH,
     },
     client: {
       overlay: false,

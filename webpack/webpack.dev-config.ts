@@ -9,6 +9,6 @@ module.exports = (): webpack.Configuration => {
 
   return {
     ...getWebpackBaseConfig(env),
-    devServer: getWebpackDevServerConfig(),
+    devServer: getWebpackDevServerConfig(env),
   };
 };

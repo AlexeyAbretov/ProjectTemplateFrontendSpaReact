@@ -1,7 +1,7 @@
 export {
   ApiClient,
-  apiClient,
   type ApiClientConfig,
+  apiClientInstance,
   ApiError,
   type RequestMethod,
   type RequestOptions,

@@ -99,6 +99,6 @@ export class ApiClient {
   }
 }
 
-export const apiClient = new ApiClient({
+export const apiClientInstance = new ApiClient({
   baseUrl: typeof API_PATH !== 'undefined' ? API_PATH : '',
 });

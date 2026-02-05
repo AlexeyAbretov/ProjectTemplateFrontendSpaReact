@@ -1,3 +1,3 @@
-import { NotFoundPage } from './not-found-page';
+import { NotFoundPage } from './NotFoundPage';
 
 export const routes = [{ path: '*', element: <NotFoundPage /> }];

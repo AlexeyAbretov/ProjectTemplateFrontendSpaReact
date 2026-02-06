@@ -18,7 +18,7 @@ export const FallbackWrapper = styled.div`
 export const Spinner = styled.div`
   width: 2.5rem;
   height: 2.5rem;
-  border: 3px solid ${props => props.theme.color.primary};
+  border: 3px solid ${props => props.theme.colors.primary};
   border-top-color: transparent;
   border-radius: 50%;
   animation: ${spin} 0.8s linear infinite;

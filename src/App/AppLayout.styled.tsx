@@ -21,7 +21,7 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: ${props => props.theme.color.primary};
+  color: ${props => props.theme.colors.primary};
   text-decoration: none;
   font-size: 0.9375rem;
 

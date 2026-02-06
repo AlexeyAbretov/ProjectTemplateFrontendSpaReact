@@ -12,7 +12,7 @@ describe('Button test', () => {
       </TestComponentWrapper>,
     );
 
-    expect(screen.getByText('Button')).toHaveStyleRule('color', 'blue');
+    expect(screen.getByText('Button')).toHaveStyleRule('color', '#007bff');
     expect(container).toMatchSnapshot();
   });
 });

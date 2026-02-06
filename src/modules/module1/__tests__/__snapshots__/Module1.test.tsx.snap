@@ -2,7 +2,7 @@
 
 exports[`Module1 test should render 1`] = `
 .c0 {
-  color: blue;
+  color: #007bff;
 }
 
 <div>

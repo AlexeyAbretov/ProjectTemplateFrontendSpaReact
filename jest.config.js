@@ -20,3 +20,25 @@ export const transform = {
 export const globals = {
   ...env,
 };
+
+export const collectCoverageFrom = [
+  'src/**/*.{ts,tsx}',
+  '!src/**/index.ts',
+  '!src/**/*.stories.{ts,tsx}',
+  '!src/**/__stories__/**',
+  '!src/types/**',
+  '!src/index.tsx',
+];
+
+export const coverageDirectory = 'coverage';
+
+export const coverageReporters = ['text', 'lcov', 'html'];
+
+export const coverageThreshold = {
+  global: {
+    statements: 80,
+    lines: 80,
+    functions: 77,
+    branches: 66,
+  },
+};

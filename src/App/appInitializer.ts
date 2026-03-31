@@ -4,6 +4,47 @@ import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
 
 import { AppLayout } from './AppLayout';
 
+type WebpackRequireContext = ((id: string) => unknown) & { keys: () => string[] };
+
+function webpackRequireContext(
+  directory: string,
+  deep: boolean,
+  _filter: RegExp,
+): WebpackRequireContext {
+  type RequireWithContext = NodeRequire & {
+    context?: (dir: string, useSubdirectories: boolean, regExp: RegExp) => WebpackRequireContext;
+  };
+
+  const nodeRequire = typeof require !== 'undefined' ? (require as RequireWithContext) : undefined;
+
+  if (typeof nodeRequire?.context === 'function') {
+    return nodeRequire.context(directory, deep, _filter);
+  }
+
+  const normalized = directory.replace(/\\/g, '/');
+  const isPages =
+    normalized.includes('/pages') || normalized.endsWith('pages') || normalized === '../pages';
+
+  const pages =
+    (globalThis as { __jestWebpackPages?: Record<string, unknown> }).__jestWebpackPages ?? {};
+  const modules =
+    (globalThis as { __jestWebpackModules?: Record<string, unknown> }).__jestWebpackModules ?? {};
+
+  const map = isPages ? pages : modules;
+
+  const fn = (id: string) => {
+    const entry = map[id];
+    if (typeof entry === 'function') {
+      return (entry as () => unknown)();
+    }
+    return entry ?? {};
+  };
+
+  const ctx = fn as WebpackRequireContext;
+  ctx.keys = () => Object.keys(map);
+  return ctx;
+}
+
 export class PageRegistry {
   private _routes: RouteObject[] = [];
 
@@ -16,7 +57,7 @@ export class PageRegistry {
   }
 
   load() {
-    const context = require.context('../pages', true, /index\.tsx$/);
+    const context = webpackRequireContext('../pages', true, /index\.tsx$/);
 
     context
       .keys()
@@ -60,7 +101,7 @@ export class ModuleRegistry {
   }
 
   load() {
-    const context = require.context('@modules', true, /index\.ts$/);
+    const context = webpackRequireContext('@modules', true, /index\.ts$/);
 
     context
       .keys()

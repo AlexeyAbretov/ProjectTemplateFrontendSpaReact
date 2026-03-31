@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { reducer as module1Reducer } from '@modules/module1';
 import { Module2Slice } from '@modules/module2/store';
 import { renderUiWithProviders } from '@testUtils';
 
@@ -19,6 +20,11 @@ const store = configureStore({
 });
 
 describe('Module1 test', () => {
+  it('exports reducer for registry', () => {
+    expect(module1Reducer.name).toBe('Module1');
+    expect(typeof module1Reducer.value).toBe('function');
+  });
+
   it('should render', () => {
     const { container } = renderUiWithProviders(<Module1 />, store);
 

@@ -12,14 +12,14 @@ Apply this skill for non-trivial implementation work.
 
 - Lint on touched scope (or project lint if scope-lint unavailable).
 - Relevant tests for changed modules/pages/components.
-- Build check when configuration or cross-cutting behavior changed.
+- Production build (`npm run build`) after substantive changes, not only when webpack/tsconfig changed. Treat build errors and emitted warnings as blockers: fix them or report them explicitly if verification could not be run.
 
 ## Workflow
 
 ```md
 Task progress:
 - [ ] Determine minimal verification scope
-- [ ] Run lint/tests/build as applicable
+- [ ] Run lint, tests, and `npm run build` (build must be clean: no errors; resolve warnings the bundler reports)
 - [ ] Fix introduced issues
 - [ ] Re-run failed checks once after fixes
 - [ ] Report verification outcomes clearly

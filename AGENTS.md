@@ -66,6 +66,7 @@ export const reducer = {
 ## Quality Gates Before Finishing
 
 - Run relevant checks for touched code when possible (lint/test/build scope).
+- After implementation, run tests for the affected area and run a production build (`npm run build`). The build must complete without errors; fix webpack/TypeScript warnings the build surfaces so the output stays clean.
 - Verify no obvious type/lint issues were introduced.
 - Keep docs updated if behavior or conventions changed.
 - New application code should include tests (see `DOCUMENTATION.md` section on testing); `npm run test:coverage` must meet `coverageThreshold` in `jest.config.js` (lines and statements at least 80%).

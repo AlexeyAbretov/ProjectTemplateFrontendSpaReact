@@ -7,8 +7,8 @@
 - тесты: Jest + React Testing Library;
 - вспомогательная обёртка: `renderUiWithProviders` из `@testUtils`;
 - при тестировании модулей store собирается с нужными слайсами;
-- stories располагаются рядом с компонентами, обычно в `__stories__`;
-- запуск Storybook: `npm run storybook`.
+- stories в `__stories__` рядом с компонентом; **обязательны** для новых UI-компонентов в `src/modules/**/components/` и `src/shared/components/`;
+- запуск Storybook: `npm run storybook`, сборка: `npm run build-storybook`.
 
 ## 14) Чек-лист для нового модуля
 
@@ -16,6 +16,7 @@
 - добавить `index.ts` (экспорт компонента, при наличии state - `reducer`);
 - добавить основной компонент (`<module-name>.tsx`);
 - при необходимости добавить `store/types/constants/selectors/api/components/containers`;
+- для каждого компонента в `components/` — Storybook stories в `__stories__`;
 - подключить модуль на странице через `routes` в `src/pages/.../index.tsx`;
 - для lazy-экспорта использовать `Suspense`;
 - селекторы писать по ключу `reducer.name` в state;

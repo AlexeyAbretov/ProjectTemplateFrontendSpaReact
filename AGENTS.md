@@ -47,6 +47,7 @@ export const reducer = {
 - Ensure selectors read from `state[reducer.name]`.
 - Do not change reducer key names without updating dependent selectors/tests.
 - Module containers: keep JSX minimal; put layout and presentational markup in `components/`.
+- New UI components under `src/modules/**/components/` and `src/shared/components/` must include Storybook stories in `__stories__` (CSF 3); see `DOCUMENTATION.md` §13.
 
 ## Adding Or Modifying Pages
 

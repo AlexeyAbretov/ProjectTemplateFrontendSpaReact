@@ -74,6 +74,8 @@ Optional feature folders:
 
 Containers should stay thin: Redux wiring and composition only; move markup to `components/`.
 
+Each new UI component under `components/` needs a sibling `__stories__` folder with CSF 3 stories (`*.stories.ts` or `*.stories.tsx`); title prefix `ModuleName/Components/ComponentName` (see `DOCUMENTATION.md` §13).
+
 For lazy export pattern:
 
 ```ts
@@ -111,6 +113,7 @@ After edits:
 
 - ensure imports follow `simple-import-sort/imports`
 - ensure selectors read from `state[reducer.name]` key
+- add or update Storybook stories for any new component under `components/`
 - run relevant lint/tests for touched code
 - report what was verified and what remains
 

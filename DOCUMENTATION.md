@@ -95,7 +95,7 @@ src/
 │   │   ├── module1.tsx
 │   │   ├── __tests__/           # Тесты модуля
 │   │   ├── api/
-│   │   ├── components/          # Например Module1CustomButton/ с __stories__ и __tests__
+│   │   ├── components/          # UI-компоненты; у каждого — __stories__ (обязательно) и при необходимости __tests__
 │   │   ├── constants/
 │   │   ├── containers/
 │   │   ├── selectors/
@@ -561,7 +561,8 @@ localStorage.setItem('GET-api-v1-module1-list', 'http400');
 ## 13. Тестирование и Storybook
 
 - **Тесты:** Jest + React Testing Library. Обёртка `renderUiWithProviders` из `@testUtils` подключает `ThemeProvider` и Redux `Provider`. В тестах модулей store собирается вручную с нужными слайсами (см. `src/modules/module1/__tests__/Module1.test.tsx`).
-- **Storybook:** истории лежат рядом с компонентами, в папках `__stories__` (например, `Button`, `Module1CustomButton`). Запуск: `npm run storybook`.
+- **Storybook:** истории лежат рядом с компонентами, в папках **`__stories__`** рядом с папкой компонента (например, `Button/__stories__/Button.stories.ts`, `FullNameModule.FullNameForm/__stories__/FullNameModule.FullNameForm.stories.tsx`). Запуск: `npm run storybook`, сборка статики: `npm run build-storybook`.
+- **Обязательность stories:** для **каждого нового** UI-компонента в **`src/modules/**/components/`** и **`src/shared/components/`** нужно добавить хотя бы одну историю Storybook (формат CSF 3: `Meta`, `StoryObj`, `satisfies Meta<typeof Component>`, по желанию `tags: ['autodocs']`). В сайдбере для модульных компонентов используйте префикс вида **`ИмяМодуля/Components/ИмяКомпонента`**, для общих — **`Components/ИмяКомпонента`**. В историях отображайте основные состояния (пусто/загрузка/ошибка и т.п., если применимо). Контейнеры и чистую композицию Redux обычно не выносят в Storybook, если отдельного UI там нет.
 
 При добавлении нового модуля с редюсером в тестах нужно подключать соответствующие слайсы в `configureStore`, и при обращении к стейту использовать тот же ключ, что и в `reducer.name`.
 
@@ -573,6 +574,7 @@ localStorage.setItem('GET-api-v1-module1-list', 'http400');
 - [ ] Файл `index.ts`: экспорт компонента (при необходимости через `lazy`) и при наличии стейта — `reducer` в формате `{ name: '...', value: slice.reducer }`.
 - [ ] Основной компонент модуля (например, `<module-name>.tsx`).
 - [ ] При необходимости: `store/` (slice + thunks), `types/`, `constants/`, `selectors/`, `api/`, `components/`, `containers/`.
+- [ ] Каждый новый компонент в `components/` (и общие в `src/shared/components/`) — папка `__stories__` с `*.stories.ts` или `*.stories.tsx` (см. раздел [13. Тестирование и Storybook](#13-тестирование-и-storybook)).
 - [ ] Контейнеры: минимум разметки; вёрстка в `components/`.
 - [ ] Подключение на странице: новый или существующий роут в `src/pages/.../index.tsx` с `element`, рендерящим модуль; при lazy — обёртка в `Suspense`.
 - [ ] Если навигация из модуля нужна без зависимости от роутера — использовать CustomEvent и подписку на нём в странице/layout с вызовом `navigate()`.

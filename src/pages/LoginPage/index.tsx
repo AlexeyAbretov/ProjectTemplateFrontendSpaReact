@@ -1,6 +1,6 @@
 import { LoginPage } from './LoginPage';
 
-export const routes = [
+export const routes: AppPageRoute[] = [
   {
     path: '/login',
     element: <LoginPage />,

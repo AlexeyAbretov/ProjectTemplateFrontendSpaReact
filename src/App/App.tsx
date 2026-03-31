@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { theme } from '@theme';
 
-import { appInitializer } from './appInitializer';
+import { appInitializer } from './AppInitializer';
 
 export const App: React.FC = (): JSX.Element => {
   appInitializer.init();

@@ -1,10 +1,17 @@
 import { createElement } from 'react';
+import type { RouteObject } from 'react-router';
 
-import { AppInitializer, ModuleRegistry, PageRegistry } from '../appInitializer';
+import { AppInitializer, ModuleRegistry, PageRegistry } from '../AppInitializer';
+
+/** Test-only globals used by `createJestWebpackContext` when `NODE_ENV === 'test'`. */
+const jestWebpackGlobal = globalThis as typeof globalThis & {
+  __jestWebpackPages?: Record<string, unknown>;
+  __jestWebpackModules?: Record<string, unknown>;
+};
 
 describe('PageRegistry', () => {
   afterEach(() => {
-    delete (globalThis as { __jestWebpackPages?: unknown }).__jestWebpackPages;
+    delete jestWebpackGlobal.__jestWebpackPages;
   });
 
   it('registerRoutes and getRoutes', () => {
@@ -14,7 +21,7 @@ describe('PageRegistry', () => {
   });
 
   it('load imports routes from webpack context', () => {
-    (globalThis as { __jestWebpackPages: Record<string, unknown> }).__jestWebpackPages = {
+    jestWebpackGlobal.__jestWebpackPages = {
       './demo/index.tsx': () => ({
         routes: [{ path: '/demo', element: createElement('span') }],
       }),
@@ -23,11 +30,31 @@ describe('PageRegistry', () => {
     reg.load();
     expect(reg.getRoutes().some(r => r.path === '/demo')).toBe(true);
   });
+
+  it('getHeaderNavLinks collects header from registered routes', () => {
+    const reg = new PageRegistry();
+    reg.registerRoutes([
+      {
+        path: '/z',
+        element: createElement('span'),
+        header: { label: 'Z', order: 2 },
+      },
+      {
+        path: '/a',
+        element: createElement('span'),
+        header: { label: 'A', order: 1 },
+      },
+    ] as unknown as RouteObject[]);
+    expect(reg.getHeaderNavLinks()).toEqual([
+      { to: '/a', label: 'A', order: 1 },
+      { to: '/z', label: 'Z', order: 2 },
+    ]);
+  });
 });
 
 describe('ModuleRegistry', () => {
   afterEach(() => {
-    delete (globalThis as { __jestWebpackModules?: unknown }).__jestWebpackModules;
+    delete jestWebpackGlobal.__jestWebpackModules;
   });
 
   const dummyReducer = (state: Record<string, unknown> = {}, action: { type: string }) => {
@@ -45,7 +72,7 @@ describe('ModuleRegistry', () => {
   });
 
   it('load registers reducers from context', () => {
-    (globalThis as { __jestWebpackModules: Record<string, unknown> }).__jestWebpackModules = {
+    jestWebpackGlobal.__jestWebpackModules = {
       './mod/index.ts': () => ({
         reducer: { name: 'DynMod', value: dummyReducer },
       }),
@@ -59,8 +86,8 @@ describe('ModuleRegistry', () => {
 
 describe('AppInitializer', () => {
   afterEach(() => {
-    delete (globalThis as { __jestWebpackPages?: unknown }).__jestWebpackPages;
-    delete (globalThis as { __jestWebpackModules?: unknown }).__jestWebpackModules;
+    delete jestWebpackGlobal.__jestWebpackPages;
+    delete jestWebpackGlobal.__jestWebpackModules;
   });
 
   it('init loads registries and getRouter returns router config', () => {

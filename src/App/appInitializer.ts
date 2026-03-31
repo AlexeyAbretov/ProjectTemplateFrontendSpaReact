@@ -1,124 +1,12 @@
 import { createElement } from 'react';
-import { createBrowserRouter, RouteObject } from 'react-router';
-import { combineReducers, configureStore, Reducer } from '@reduxjs/toolkit';
+import { createBrowserRouter } from 'react-router';
 
 import { AppLayout } from './AppLayout';
+import { ModuleRegistry } from './ModuleRegistry';
+import { PageRegistry } from './PageRegistry';
 
-type WebpackRequireContext = ((id: string) => unknown) & { keys: () => string[] };
-
-function webpackRequireContext(
-  directory: string,
-  deep: boolean,
-  _filter: RegExp,
-): WebpackRequireContext {
-  type RequireWithContext = NodeRequire & {
-    context?: (dir: string, useSubdirectories: boolean, regExp: RegExp) => WebpackRequireContext;
-  };
-
-  const nodeRequire = typeof require !== 'undefined' ? (require as RequireWithContext) : undefined;
-
-  if (typeof nodeRequire?.context === 'function') {
-    return nodeRequire.context(directory, deep, _filter);
-  }
-
-  const normalized = directory.replace(/\\/g, '/');
-  const isPages =
-    normalized.includes('/pages') || normalized.endsWith('pages') || normalized === '../pages';
-
-  const pages =
-    (globalThis as { __jestWebpackPages?: Record<string, unknown> }).__jestWebpackPages ?? {};
-  const modules =
-    (globalThis as { __jestWebpackModules?: Record<string, unknown> }).__jestWebpackModules ?? {};
-
-  const map = isPages ? pages : modules;
-
-  const fn = (id: string) => {
-    const entry = map[id];
-    if (typeof entry === 'function') {
-      return (entry as () => unknown)();
-    }
-    return entry ?? {};
-  };
-
-  const ctx = fn as WebpackRequireContext;
-  ctx.keys = () => Object.keys(map);
-  return ctx;
-}
-
-export class PageRegistry {
-  private _routes: RouteObject[] = [];
-
-  registerRoutes(routes: RouteObject[]) {
-    this._routes.push(...routes);
-  }
-
-  getRoutes() {
-    return this._routes;
-  }
-
-  load() {
-    const context = webpackRequireContext('../pages', true, /index\.tsx$/);
-
-    context
-      .keys()
-      .filter(x => x.startsWith('./'))
-      .forEach(key => {
-        const page = context(key);
-
-        if (page.routes) {
-          this.registerRoutes(page.routes);
-        }
-      });
-  }
-}
-
-export class ModuleRegistry {
-  private _store = configureStore({
-    reducer: (state, action) => {
-      const combined = combineReducers({ ...this.dynamicReducers });
-      return combined(state, action);
-    },
-    preloadedState: undefined,
-    devTools:
-      NODE_ENV === 'development'
-        ? {
-            name: 'ModuleExampleStore',
-            trace: true,
-            traceLimit: 25,
-          }
-        : false,
-  });
-
-  getStore() {
-    return this._store;
-  }
-
-  private dynamicReducers: Record<string, Reducer> = {};
-
-  registerModuleReducer(key: string, reducer: Reducer) {
-    this.dynamicReducers[key] = reducer;
-    this._store.replaceReducer(combineReducers({ ...this.dynamicReducers }));
-  }
-
-  load() {
-    const context = webpackRequireContext('@modules', true, /index\.ts$/);
-
-    context
-      .keys()
-      .filter(x => x.startsWith('./'))
-      .forEach(key => {
-        const module = context(key);
-
-        if (module.reducer) {
-          const moduleName = module.reducer.name;
-
-          if (moduleName) {
-            this.registerModuleReducer(moduleName, module.reducer.value);
-          }
-        }
-      });
-  }
-}
+export { ModuleRegistry } from './ModuleRegistry';
+export { PageRegistry } from './PageRegistry';
 
 export class AppInitializer {
   private _pageRegistry = new PageRegistry();
@@ -140,6 +28,10 @@ export class AppInitializer {
 
   get store() {
     return this._moduleRegistry.getStore();
+  }
+
+  getHeaderNavLinks(): AppHeaderNavLink[] {
+    return this._pageRegistry.getHeaderNavLinks();
   }
 }
 

@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "target": "esnext",
     "types": ["node", "jest", "webpack-env"],
+    "typeRoots": ["./node_modules/@types", "./src/types", "./src/App/types"],
     "sourceMap": false,
     "declaration": false,
     "declarationMap": false,
@@ -30,6 +31,5 @@
       "@useAppDispatch": ["./src/App/useAppDispatch"],
       "@selectors": ["./src/shared/selectors"]
     }
-  },
-  "typeRoots": ["./node_modules/@types", "./src/types"]
+  }
 }

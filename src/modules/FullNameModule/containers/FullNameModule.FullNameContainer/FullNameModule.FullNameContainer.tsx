@@ -3,17 +3,15 @@ import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '@useAppDispatch';
 
-import { FullNameForm } from '../../components';
+import {
+  FullNameClearErrorButton,
+  FullNameForm,
+  FullNameSavedPreview,
+  FullNameScreen,
+} from '../../components';
 import { getFullNameModuleFullNameContainerProps } from '../../selectors';
 import { clearError, saveFullName } from '../../store';
 import { FullNameFormInputs } from '../../validation';
-
-import {
-  CardContainer,
-  ClearErrorButton,
-  Container,
-  Title,
-} from './FullNameModule.FullNameContainer.styled';
 
 export const FullNameContainer: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -28,20 +26,10 @@ export const FullNameContainer: React.FC = (): JSX.Element => {
   };
 
   return (
-    <Container>
-      <CardContainer>
-        <Title>Введите ФИО</Title>
-        <FullNameForm onSubmit={handleSaveFullName} isLoading={isLoading} error={error} />
-        {error && <ClearErrorButton onClick={handleClearError}>Очистить ошибку</ClearErrorButton>}
-        {fullName && (
-          <div>
-            <h2>Сохраненные данные:</h2>
-            <p>Фамилия: {fullName.lastName}</p>
-            <p>Имя: {fullName.firstName}</p>
-            {fullName.middleName && <p>Отчество: {fullName.middleName}</p>}
-          </div>
-        )}
-      </CardContainer>
-    </Container>
+    <FullNameScreen title="Введите ФИО">
+      <FullNameForm onSubmit={handleSaveFullName} isLoading={isLoading} error={error} />
+      <FullNameClearErrorButton visible={Boolean(error)} onClear={handleClearError} />
+      <FullNameSavedPreview fullName={fullName} />
+    </FullNameScreen>
   );
 };

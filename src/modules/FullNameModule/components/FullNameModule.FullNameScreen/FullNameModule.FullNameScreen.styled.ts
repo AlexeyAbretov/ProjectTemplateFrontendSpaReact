@@ -24,8 +24,3 @@ export const Title = styled.h1`
   margin: 0 0 32px 0;
   text-align: center;
 `;
-
-export const ClearErrorButton = styled.button`
-  margin-top: 16px;
-  cursor: pointer;
-`;

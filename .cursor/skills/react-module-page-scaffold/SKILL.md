@@ -72,6 +72,8 @@ Optional feature folders:
 
 - `store/`, `selectors/`, `types/`, `api/`, `components/`, `containers/`, `constants/`
 
+Containers should stay thin: Redux wiring and composition only; move markup to `components/`.
+
 For lazy export pattern:
 
 ```ts

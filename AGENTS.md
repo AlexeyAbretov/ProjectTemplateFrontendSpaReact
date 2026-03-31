@@ -46,6 +46,7 @@ export const reducer = {
 
 - Ensure selectors read from `state[reducer.name]`.
 - Do not change reducer key names without updating dependent selectors/tests.
+- Module containers: keep JSX minimal; put layout and presentational markup in `components/`.
 
 ## Adding Or Modifying Pages
 

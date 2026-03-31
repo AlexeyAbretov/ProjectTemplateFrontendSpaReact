@@ -30,6 +30,8 @@ export const reducer = {
 
 `name` - это ключ в корневом `state`.
 
+**Контейнеры (`containers/`):** минимум разметки — связка store и UI; вёрстку выносить в `components/`.
+
 ## 7) Как добавить новый модуль
 
 1. создать `src/modules/my-feature/`;

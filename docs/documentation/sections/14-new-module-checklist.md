@@ -4,6 +4,7 @@
 - добавить `index.ts` (экспорт компонента, при наличии state - `reducer`);
 - добавить основной компонент (`<module-name>.tsx`);
 - при необходимости добавить `store/types/constants/selectors/api/components/containers`;
+- в `containers/` — минимум JSX (данные и `dispatch`); разметка в `components/`;
 - подключить модуль на странице через `routes` в `src/pages/.../index.tsx`;
 - для lazy-экспорта использовать `Suspense`;
 - селекторы писать по ключу `reducer.name` в state;

@@ -47,7 +47,7 @@ export const reducer = {
 - Ensure selectors read from `state[reducer.name]`.
 - Do not change reducer key names without updating dependent selectors/tests.
 - Module containers: keep JSX minimal; put layout and presentational markup in `components/`.
-- New UI components under `src/modules/**/components/` and `src/shared/components/` must include Storybook stories in `__stories__` (CSF 3); see `DOCUMENTATION.md` §13.
+- New UI components under `src/modules/**/components/` and `src/shared/components/` must include Storybook stories in `__stories__` (CSF 3); see `DOCUMENTATION.md` (section on testing and Storybook).
 
 ## Adding Or Modifying Pages
 
@@ -68,6 +68,7 @@ export const reducer = {
 - Run relevant checks for touched code when possible (lint/test/build scope).
 - Verify no obvious type/lint issues were introduced.
 - Keep docs updated if behavior or conventions changed.
+- New application code should include tests (see `DOCUMENTATION.md` section on testing); `npm run test:coverage` must meet `coverageThreshold` in `jest.config.js` (lines and statements at least 80%).
 
 ## Safety
 

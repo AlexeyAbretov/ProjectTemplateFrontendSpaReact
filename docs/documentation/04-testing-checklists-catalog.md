@@ -7,6 +7,7 @@
 - тесты: Jest + React Testing Library;
 - вспомогательная обёртка: `renderUiWithProviders` из `@testUtils`;
 - при тестировании модулей store собирается с нужными слайсами;
+- **новый прикладной код** сопровождается тестами; `npm run test:coverage` и пороги в `jest.config.js` (строки и операторы не ниже 80%);
 - stories в `__stories__` рядом с компонентом; **обязательны** для новых UI-компонентов в `src/modules/**/components/` и `src/shared/components/`;
 - запуск Storybook: `npm run storybook`, сборка: `npm run build-storybook`.
 
@@ -20,7 +21,8 @@
 - подключить модуль на странице через `routes` в `src/pages/.../index.tsx`;
 - для lazy-экспорта использовать `Suspense`;
 - селекторы писать по ключу `reducer.name` в state;
-- тесты настраивать с тем же ключом state.
+- тесты настраивать с тем же ключом state;
+- прогон `npm run test` / `npm run test:coverage` перед merge при изменении логики.
 
 ## 15) Типичный сценарий: экран "Каталог"
 

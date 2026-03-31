@@ -6,12 +6,12 @@
 
 Каждая страница в `src/pages/<page-name>/` обычно содержит:
 
-- `index.tsx` - экспорт `routes: RouteObject[]`;
+- `index.tsx` - экспорт `routes: RouteObject[]` (опционально поле `header: { label, order? }` на маршруте — пункт навигации в шапке; тип `AppPageRoute` в `src/App/types/App.d.ts`);
 - `<page-name>.tsx` - компонент страницы.
 
 Рекомендация: оборачивать lazy-модули в `Suspense`.
 
-Для вложенных маршрутов используется layout с `<Outlet />` и `children` в `routes`.
+Для вложенных маршрутов используется layout с `<Outlet />` и `children` в `routes`. Ссылки шапки строятся из роутов с `header` (`PageRegistry.getHeaderNavLinks()` / `AppLayout`); `*` в `path` не попадает в шапку.
 
 ## 6) Модули (Modules)
 
@@ -46,7 +46,7 @@ export const reducer = {
 1. создать `src/pages/my-page/`;
 2. добавить `index.tsx` с экспортом `routes`;
 3. добавить `my-page.tsx`;
-4. при необходимости добавить ссылку в навигацию.
+4. при необходимости добавить пункт в шапку через `header: { label, order? }` на маршруте (см. п. 5 выше и `DOCUMENTATION.md`).
 
 Роуты объединяются автоматически при `PageRegistry.load()`.
 

@@ -209,7 +209,8 @@ import { MyComponent } from './MyComponent';
 
 - **Назначение:** собрать все маршруты приложения из страниц.
 - **Как работает:** при вызове `load()` использует `require.context('../pages', true, /index\.tsx$/)`, находит все `index.tsx` в `src/pages/`, импортирует их и для каждого модуля, у которого есть экспорт `routes`, добавляет эти роуты в общий массив.
-- **Важно:** каждая страница должна экспортировать массив `routes` (формат React Router: `RouteObject[]`). Имена папок и файлов могут быть любыми, но **точка входа страницы — именно `index.tsx`** в своей папке.
+- **Важно:** каждая страница должна экспортировать массив `routes` (формат React Router: `RouteObject[]`, в проекте допускается расширение `AppPageRoute` — см. ниже). Имена папок и файлов могут быть любыми, но **точка входа страницы — именно `index.tsx`** в своей папке.
+- **Шапка приложения:** у элемента маршрута можно задать необязательное поле `header: { label: string; order?: number }` (тип `AppPageRoute` в `src/App/types/App.d.ts`). `PageRegistry.getHeaderNavLinks()` обходит все зарегистрированные роуты (включая вложенные `children`), собирает записи с `header` и возвращает их, отсортированные по возрастанию `order` (по умолчанию `0`), затем по пути `to`. Маршруты с подстановкой `*` в `path` в навигацию шапки не включаются. `AppLayout` выводит эти ссылки в компоненте `Header`; доступ через `appInitializer.getHeaderNavLinks()`.
 
 ### ModuleRegistry
 
@@ -221,7 +222,7 @@ import { MyComponent } from './MyComponent';
 ### AppInitializer
 
 - Вызывает `PageRegistry.load()` и `ModuleRegistry.load()` в `init()`.
-- Предоставляет `getRouter()` (роутер на основе собранных routes) и геттер `store` (единый store с динамическими редюсерами).
+- Предоставляет `getRouter()` (роутер на основе собранных routes), геттер `store` (единый store с динамическими редюсерами) и `getHeaderNavLinks()` (ссылки шапки из роутов с полем `header`).
 
 В **`App.tsx`** при рендере используются `appInitializer.store` и `appInitializer.getRouter()`; инициализация вызывается один раз при импорте (`appInitializer.init()`).
 
@@ -231,7 +232,7 @@ import { MyComponent } from './MyComponent';
 
 Страницы лежат в **`src/pages/`**. Каждая страница — это папка с как минимум двумя файлами:
 
-- **`index.tsx`** — обязан экспортировать `routes: RouteObject[]`. Этот файл ищет `PageRegistry`.
+- **`index.tsx`** — обязан экспортировать `routes: RouteObject[]` (при необходимости с полем `header` на отдельных роутах — см. раздел [PageRegistry](#pageregistry)). Этот файл ищет `PageRegistry`.
 - **Компонент страницы** (например, `page1.tsx`, `dashboard-page.tsx`) — рендерит разметку и подключает один или несколько модулей.
 
 ### Пример простой страницы (один модуль, один роут)
@@ -245,6 +246,7 @@ export const routes = [
   {
     path: '/page1',
     element: <Page1 />,
+    header: { label: 'Page1', order: 1 },
   },
 ];
 ```

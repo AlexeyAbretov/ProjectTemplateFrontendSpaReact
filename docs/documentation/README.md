@@ -19,7 +19,10 @@
 5. [05-error-boundary.md](./05-error-boundary.md)  
    Error Boundary: концепция, уровни, пропсы, примеры.
 
-## Посекционная версия (16 файлов)
+6. [06-planning-and-delivery.md](./06-planning-and-delivery.md)  
+   Планирование в трекере и цикл до PR (**опционально**, только по явному запросу в промпте; см. §17–§18).
+
+## Посекционная версия (18 файлов)
 
 Для работы по каждому разделу отдельно добавлена версия в `docs/documentation/sections/`:
 
@@ -39,6 +42,8 @@
 14. [14-new-module-checklist.md](./sections/14-new-module-checklist.md)
 15. [15-catalog-scenario.md](./sections/15-catalog-scenario.md)
 16. [16-error-boundary.md](./sections/16-error-boundary.md)
+17. [17-planning-feature-tracker.md](./sections/17-planning-feature-tracker.md)
+18. [18-feature-implementation-delivery.md](./sections/18-feature-implementation-delivery.md)
 
 ## Примечание
 

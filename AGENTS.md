@@ -63,6 +63,13 @@ export const reducer = {
   - `webpack/webpack.resolve.ts`
   - `.storybook/webpack.config.ts`
 
+## Planning And Feature Delivery (optional)
+
+- §17–§18 and the linked split docs describe an **optional** tracker/git workflow. **Do not** create milestones, issues, wiki pages, feature branches, or PRs under this workflow **unless the user explicitly asks in the prompt** (e.g. “plan in Gitea per §17”, “implement with branch + PR per §18”). Otherwise follow normal architecture and quality gates only.
+- **Planning** (milestone, issue breakdown, task order, wiki or fallback status table): `DOCUMENTATION.md` §17; `docs/documentation/sections/17-planning-feature-tracker.md`.
+- **Implementation and delivery** (`feature/*` branch, PR, closing issues, Router test wrapping, etc.): `DOCUMENTATION.md` §18; `docs/documentation/sections/18-feature-implementation-delivery.md`.
+- Short index: `docs/documentation/06-planning-and-delivery.md`.
+
 ## Quality Gates Before Finishing
 
 - Run relevant checks for touched code when possible (lint/test/build scope).
